@@ -37,3 +37,20 @@ export async function deleteLocalFiles(files: Array<string>) {
     fs.unlinkSync(file);
   }
 }
+
+/**
+ * Gets all files in __dirname + /tmp
+ * @param ignore_file - file name to be ignored
+ * @returns list of files from /tmp
+ */
+export async function getLocalFilesFromTmp(): Promise<Array<string>> {
+  var tmpFiles = new Array();  
+  return new Promise(async (resolve, reject) => {
+    fs.readdir(__dirname + "/tmp/", (err, files) => {
+      files.forEach(file => {
+          tmpFiles.push(__dirname + "/tmp/" + file);
+      })
+      resolve(tmpFiles);
+    })  
+  })
+}
